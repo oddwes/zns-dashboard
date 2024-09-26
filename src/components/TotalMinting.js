@@ -1,36 +1,46 @@
 import { Card, CardContent, Typography } from "@mui/material"
 import React, { useEffect, useState } from "react"
-import { getTokenHolders } from "../utils/blockscout"
+import { getCounters, getTokenHolders } from "../utils/blockscout"
 import { chains } from "../config/chains"
 
 export const TotalMinting = () => {
+  const [countersByChain, setCountersByChain] = useState({})
   const [tokenHoldersByChain, setTokenHoldersByChain] = useState({})
 
   useEffect(() => {
-    const getTokenHoldersFromAllChains = async () => {
-      for (const [key, data] of Object.entries(chains)) {
-        const tokenHolders = await getTokenHolders(data.url, data.address)
-        tokenHoldersByChain[key] = tokenHolders
-        setTokenHoldersByChain({...tokenHoldersByChain})
+    const getCountersByChain = async () => {
+      for (const [chain, data] of Object.entries(chains)) {
+        const counters = await getCounters(data.url, data.address)
+        countersByChain[chain] = counters.data
+
+        setCountersByChain({...countersByChain})
       }
     }
+    getCountersByChain()
 
-    getTokenHoldersFromAllChains()
+    const getTokenHoldersByChain = async () => {
+      for (const [chain, data] of Object.entries(chains)) {
+        const tokenHolders = await getTokenHolders(data.url, data.address)
+        tokenHoldersByChain[chain] = tokenHolders
+        setTokenHoldersByChain({...tokenHoldersByChain})
+
+      }
+    }
+    getTokenHoldersByChain()
   }, [])
 
   const getTotalMinting = () => {
-    let totalMinting = 0
-    for (const [chain, data] of Object.entries(tokenHoldersByChain)) {
-      const total = data.reduce((sum, current) => sum += parseInt(current.value), 0)
-      totalMinting += total
+    let totalHolders = 0
+    for (const [chain, data] of Object.entries(countersByChain)) {
+      totalHolders += parseInt(data.transfers_count)
     }
-    return totalMinting
+    return totalHolders
   }
 
   const getTotalHolders = () => {
     let totalHolders = 0
-    for (const [chain, data] of Object.entries(tokenHoldersByChain)) {
-      totalHolders += data.length
+    for (const [chain, data] of Object.entries(countersByChain)) {
+      totalHolders += parseInt(data.token_holders_count)
     }
     return totalHolders
   }
@@ -75,7 +85,6 @@ export const TotalMinting = () => {
         </CardContent>
       </Card>
       {getTopHolders()}
-      {/* {JSON.stringify(tokenHoldersByChain)} */}
     </React.Fragment>
   )
 }

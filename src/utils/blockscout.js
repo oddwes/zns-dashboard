@@ -20,3 +20,13 @@ export const getTokenHolders = async (chain, address) => {
   }
   return await apiCall(1)
 }
+
+export const getCounters = async (chainUrl, address) => {
+  try {
+    return await axios.get(
+      `https://${chainUrl}/api/v2/tokens/${address}/counters`
+    )
+  } catch (error) {
+    console.log(error)
+  }
+}
