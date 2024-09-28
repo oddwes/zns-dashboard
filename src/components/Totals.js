@@ -2,6 +2,8 @@ import { Card, CardContent, Typography } from "@mui/material"
 import React, { useEffect, useState } from "react"
 import { getCounters, getTokenHolders } from "../utils/blockscout"
 import { chains } from "../config/chains"
+import Grid from '@mui/material/Grid2'
+import { Item } from "./Item"
 
 export const TotalMinting = () => {
   const [countersByChain, setCountersByChain] = useState({})
@@ -35,27 +37,27 @@ export const TotalMinting = () => {
   }
 
   return (
-    <React.Fragment>
-      <Card variant="outlined">
-        <CardContent>
-          <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+    <Grid container p={1} spacing={1}>
+      <Grid size={1}>
+        <Item>
+          <Typography gutterBottom sx={{ fontSize: 14 }}>
             Total Minting
           </Typography>
           <Typography variant="h5" component="div">
             {getTotalMinting()}
           </Typography>
-        </CardContent>
-      </Card>
-      <Card variant="outlined">
-        <CardContent>
-          <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+        </Item>
+      </Grid>
+      <Grid size={1}>
+        <Item>
+          <Typography gutterBottom sx={{ fontSize: 14 }}>
             Total Holders
           </Typography>
           <Typography variant="h5" component="div">
             {getTotalHolders()}
           </Typography>
-        </CardContent>
-      </Card>
-    </React.Fragment>
+        </Item>
+      </Grid>
+    </Grid>
   )
 }

@@ -1,5 +1,5 @@
 .App {
-  background-color: #282c34;
+  background-color: #16181B;
   color: white;
 }
 
@@ -36,4 +36,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Card {
+  background-color: #1A2027;
+  color: white;
 }

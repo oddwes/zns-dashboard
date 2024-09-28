@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { getMinting } from "../utils/blockscout"
 import { chains } from "../config/chains"
 import { Card, CardContent, Typography } from "@mui/material"
+import Grid from '@mui/material/Grid2'
+import { Item } from "./Item"
 
 export const MintingActivity = () => {
   const [mintingActivityByChain, setMintingActivityByChain] = useState({})
@@ -20,22 +22,22 @@ export const MintingActivity = () => {
 
   const mintingActivity = () => {
     return Object.keys(mintingActivityByChain).map((key) => (
-      <Card variant="outlined">
-        <CardContent>
-            <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-              {key}
-            </Typography>
-            <Typography component="div">
-                {mintingActivityByChain[key].length}
-            </Typography>
-        </CardContent>
-      </Card>
+      <Grid size={1}>
+        <Item>
+          <Typography gutterBottom sx={{ fontSize: 14 }}>
+            {key}
+          </Typography>
+          <Typography component="div">
+              {mintingActivityByChain[key].length}
+          </Typography>
+        </Item>
+      </Grid>
     ))
   }
 
   return(
-    <React.Fragment>
+    <Grid container p={1} spacing={1}>
       {mintingActivity()}
-    </React.Fragment>
+    </Grid>
   )
 }

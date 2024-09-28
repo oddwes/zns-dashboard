@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { getTokenHolders } from "../utils/blockscout"
 import { chains } from "../config/chains"
 import { Card, CardContent, Typography } from "@mui/material"
+import Grid from '@mui/material/Grid2'
+import { Item } from "./Item"
 
 export const TopHolders = () => {
   const [tokenHoldersByChain, setTokenHoldersByChain] = useState({})
@@ -19,24 +21,24 @@ export const TopHolders = () => {
 
   const topHolders = () => {
     return Object.keys(tokenHoldersByChain).map((chain) => (
-      <Card variant="outlined">
-        <CardContent>
-            <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-              {chain}
+      <Grid size={3}>
+        <Item>
+          <Typography gutterBottom sx={{ fontSize: 14 }}>
+            {chain}
+          </Typography>
+          {tokenHoldersByChain[chain].slice(0, 100).map((holder) => (
+            <Typography component="div">
+                {holder.address}: {holder.value}
             </Typography>
-            {tokenHoldersByChain[chain].slice(0, 100).map((holder) => (
-              <Typography component="div">
-                  {holder.address}: {holder.value}
-              </Typography>
-            ))}
-        </CardContent>
-      </Card>
+          ))}
+        </Item>
+      </Grid>
     ))
   }
 
   return (
-    <React.Fragment>
+    <Grid container p={1} spacing={1}>
       {topHolders()}
-    </React.Fragment>
+    </Grid>
   )
 }
