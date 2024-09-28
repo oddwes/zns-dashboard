@@ -15,8 +15,17 @@ export const getTokenHolders = async (chain, address) => {
   const OFFSET = 10000
   const apiCall = async (page, result = []) => {
     try {
+      const params = {
+        module: 'token',
+        action: 'getTokenHolders',
+        contractaddress: address,
+        page: page,
+        offset: OFFSET
+      }
       const response = await axios.post(
-        `https://${chain}/api?module=token&action=getTokenHolders&contractaddress=${address}&page=${page}&offset=${OFFSET}`
+        `https://${chain}/api`,
+        null,
+        { params }
       )
       const data = response.data.result
       result.push(...data)

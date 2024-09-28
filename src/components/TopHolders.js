@@ -12,20 +12,19 @@ export const TopHolders = () => {
         const tokenHolders = await getTokenHolders(data.url, data.address)
         tokenHoldersByChain[chain] = tokenHolders
         setTokenHoldersByChain({...tokenHoldersByChain})
-
       }
     }
     getTokenHoldersByChain()
   }, [])
 
   const topHolders = () => {
-    return Object.entries(tokenHoldersByChain).map((item) => (
+    return Object.keys(tokenHoldersByChain).map((chain) => (
       <Card variant="outlined">
         <CardContent>
             <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-              {item[0]}
+              {chain}
             </Typography>
-            {item[1].slice(0, 100).map((holder) => (
+            {tokenHoldersByChain[chain].slice(0, 100).map((holder) => (
               <Typography component="div">
                   {holder.address}: {holder.value}
               </Typography>
