@@ -1,6 +1,5 @@
 .App {
   background-color: #16181B;
-  color: white;
 }
 
 .App-logo {
@@ -36,9 +35,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.Card {
-  background-color: #1A2027;
-  color: white;
 }

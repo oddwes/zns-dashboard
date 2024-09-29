@@ -38,7 +38,7 @@ export const TotalMinting = () => {
 
   return (
     <Grid container p={1} spacing={1}>
-      <Grid size={1}>
+      <Grid size={1} style={{minWidth:'115px'}}>
         <Item>
           <Typography gutterBottom sx={{ fontSize: 14 }}>
             Total Minting
@@ -48,7 +48,7 @@ export const TotalMinting = () => {
           </Typography>
         </Item>
       </Grid>
-      <Grid size={1}>
+      <Grid size={1} style={{minWidth:'120px'}}>
         <Item>
           <Typography gutterBottom sx={{ fontSize: 14 }}>
             Total Holders
